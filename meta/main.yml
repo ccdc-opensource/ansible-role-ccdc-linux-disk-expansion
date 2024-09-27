@@ -1,0 +1,10 @@
+galaxy_info:
+  author: Sam Jackson
+  description: Expand Linux disk
+  company: CCDC
+  license: MIT
+  min_ansible_version: 2.1
+  galaxy_tags: []
+
+dependencies: []
+
