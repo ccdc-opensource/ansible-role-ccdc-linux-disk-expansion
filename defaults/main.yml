@@ -1,2 +1,4 @@
 ---
-# defaults file for ansible-role-ccdc-linux-disk-expansion
+disk_name: /dev/sda
+disk_size_use: +100%FREE
+resize2fs: true

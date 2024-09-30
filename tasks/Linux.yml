@@ -1,0 +1,30 @@
+---
+- name: Read device information (always use unit when probing)
+  community.general.parted: device={{ disk_name }} unit=MiB
+  register: disk_info
+  become: true
+
+- name: Extend an existing partition to fill all available space
+  community.general.parted:
+    device: "{{ disk_name }}"
+    number: "{{ disk_info.partitions | length }}"
+    part_end: "100%"
+    state: present
+    resize: true
+    label: gpt
+  become: true
+
+- name: resize disk
+  community.general.lvg:
+    vg: "{{ vg_name }}"
+    pvs: "{{ disk_name }}{{ disk_info.partitions | length }}"
+    pvresize: true
+  become: true
+
+- name: Extend the logical volume to consume all remaining space in the volume group
+  community.general.lvol:
+    vg: "{{ vg_name }}"
+    lv: "{{ lv_name }}"
+    size: "{{ disk_size_use }}"
+    resizefs: "{{ resize2fs }}"
+  become: true

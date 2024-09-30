@@ -1,5 +1,2 @@
-disk_name: /dev/sda 2
 lv_name: lv_root
 vg_name: VolGroup
-disk_size_use: +100%FREE
-resize2fs: true

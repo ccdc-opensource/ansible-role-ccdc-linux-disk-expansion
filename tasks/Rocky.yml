@@ -4,14 +4,6 @@
     state: present
   become: true
 
-- name: growpart the disk
-  ansible.builtin.command: growpart {{ disk_name }}
-  become: true
-
-- name: Extend the logical volume to consume all remaining space in the volume group
-  community.general.lvol:
-    vg: "{{ vg_name }}"
-    lv: "{{ lv_name }}"
-    size: "{{ disk_size_use }}"
-    resizefs: "{{ resize2fs }}"
-  become: true
+- name: Expand Linux Disk
+  ansible.builtin.include_tasks:
+    file: Linux.yml
