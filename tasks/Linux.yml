@@ -11,7 +11,7 @@
     part_end: "100%"
     state: present
     resize: true
-    label: gpt
+    label: "{{ disk_label }}"
   become: true
 
 - name: resize disk

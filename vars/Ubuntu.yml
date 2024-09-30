@@ -1,2 +1,3 @@
 lv_name: ubuntu-lv
 vg_name: ubuntu-vg
+disk_label: gpt
