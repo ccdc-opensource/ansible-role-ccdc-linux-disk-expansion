@@ -1,2 +1,3 @@
 lv_name: lv_root
 vg_name: VolGroup
+disk_label: msdos
