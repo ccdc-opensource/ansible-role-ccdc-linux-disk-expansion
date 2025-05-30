@@ -1,6 +1,15 @@
 ---
-- name: Check/Repair Disk
-  ansible.builtin.shell: yes | diskutil repairDisk "{{ physical_disk_id }}"
+- name: Check for free space
+  ansible.builtin.command: diskutil list "{{ physical_disk_id }}"
+  register: disk_status
 
-- name: Expand disk
-  ansible.builtin.command: diskutil apfs resizeContainer "{{ disk_container }}" "{{ disk_size }}"
+- name: Expand MacOS DISK
+  when: "'(free space)' in disk_status.stdout"
+  block:
+    - name: Check/Repair Disk
+      ansible.builtin.shell: yes | diskutil repairDisk "{{ physical_disk_id }}"
+      when: "'(free space)' in disk_status.stdout"
+
+    - name: Expand disk
+      ansible.builtin.command: diskutil apfs resizeContainer "{{ disk_container }}" "{{ disk_size }}"
+      when: "'(free space)' in disk_status.stdout"
