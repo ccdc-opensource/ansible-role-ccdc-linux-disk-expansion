@@ -8,8 +8,6 @@
   block:
     - name: Check/Repair Disk
       ansible.builtin.shell: yes | diskutil repairDisk "{{ physical_disk_id }}"
-      when: "'(free space)' in disk_status.stdout"
 
     - name: Expand disk
       ansible.builtin.command: diskutil apfs resizeContainer "{{ disk_container }}" "{{ disk_size }}"
-      when: "'(free space)' in disk_status.stdout"
